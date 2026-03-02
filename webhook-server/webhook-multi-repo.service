@@ -1,0 +1,16 @@
+[Unit]
+Description=Multi-Repository Gitea Webhook Deployment Server
+After=network.target
+
+[Service]
+Type=simple
+User=__USER__
+WorkingDirectory=__WEBHOOK_DIR__
+ExecStart=/usr/bin/node webhook-multi-repo.js
+Restart=always
+RestartSec=10
+StandardOutput=append:__WEBHOOK_DIR__/webhook-multi-repo.log
+StandardError=append:__WEBHOOK_DIR__/webhook-multi-repo.log
+
+[Install]
+WantedBy=multi-user.target
