@@ -31,21 +31,15 @@ fi
 echo "Detected project type: $TEMPLATE_TYPE"
 echo "Using template: ${TEMPLATE_TYPE}-deploy.sh"
 
-# Download the appropriate template
-TEMPLATE_URL="http://192.168.254.54:3000/jrh89/cicd/raw/main/deploy-templates/${TEMPLATE_TYPE}-deploy.sh"
+# Download appropriate template
+TEMPLATE_URL="https://github.com/jrh89/cicd/raw/master/deploy-templates/${TEMPLATE_TYPE}-deploy.sh"
 
-# For now, copy from local CI-CD directory
-CI_CD_DIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
-if [ -f "$CI_CD_DIR/deploy-templates/${TEMPLATE_TYPE}-deploy.sh" ]; then
-    cp "$CI_CD_DIR/deploy-templates/${TEMPLATE_TYPE}-deploy.sh" deploy.sh
-    echo "✅ Copied deployment template"
-else
-    echo "⬇️ Downloading template from Gitea..."
-    curl -sSL "$TEMPLATE_URL" -o deploy.sh || {
-        echo "❌ Failed to download template"
-        exit 1
-    }
-fi
+# Download from GitHub (always works)
+echo "📥 Downloading template from GitHub..."
+curl -sSL "$TEMPLATE_URL" -o deploy.sh || {
+    echo "❌ Failed to download template"
+    exit 1
+}
 
 # Make it executable
 chmod +x deploy.sh
@@ -56,7 +50,7 @@ echo ""
 echo "Next steps:"
 echo "1. Review and customize deploy.sh for your specific needs"
 echo "2. Add webhook to Gitea:"
-echo "   URL: http://192.168.254.54:9001/deploy"
+echo "   URL: http://localhost:9001/deploy"
 echo "   Events: Push events"
 echo "   Branches: main, master"
 echo "3. Push to main branch to test deployment"
