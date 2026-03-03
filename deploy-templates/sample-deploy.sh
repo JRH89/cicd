@@ -6,6 +6,9 @@ echo "Repository: $(basename $(pwd))"
 echo "Timestamp: $(date)"
 echo "Current directory: $(pwd)"
 
+echo "=== PULLING LATEST CHANGES ==="
+git pull origin main || echo "⚠️ Git pull failed, continuing with current code..."
+
 # Add your deployment commands here
 # Uncomment and modify the sections you need
 
@@ -21,8 +24,15 @@ echo "Current directory: $(pwd)"
 
 # === OPTION 2: Docker Application ===
 # echo "=== REBUILDING DOCKER CONTAINERS ==="
-# docker compose down
-# docker compose up -d --build
+# if [ "$FORCE_CLEAN_BUILD" = "true" ]; then
+#     echo "🧹 Forcing clean build (no cache)..."
+#     docker compose build --no-cache
+#     docker compose up -d --force-recreate
+# else
+#     echo "🔄 Standard rebuild (using cache)..."
+#     docker compose down
+#     docker compose up -d --build --force-recreate
+# fi
 # 
 # echo "=== WAITING FOR CONTAINERS TO BE READY ==="
 # sleep 10

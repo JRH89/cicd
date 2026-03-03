@@ -6,10 +6,19 @@ echo "Repository: $(basename $(pwd))"
 echo "Timestamp: $(date)"
 echo "Current directory: $(pwd)"
 
+echo "=== PULLING LATEST CHANGES ==="
+git pull origin main || echo "⚠️ Git pull failed, continuing with current code..."
+
 echo "=== REBUILDING DOCKER CONTAINERS ==="
-# Zero downtime: rebuild without stopping first
-docker compose down
-docker compose up -d --build --force-recreate
+if [ "$FORCE_CLEAN_BUILD" = "true" ]; then
+    echo "🧹 Forcing clean build (no cache)..."
+    docker compose build --no-cache
+    docker compose up -d --force-recreate
+else
+    echo "🔄 Standard rebuild (using cache)..."
+    docker compose down
+    docker compose up -d --build --force-recreate
+fi
 
 echo "=== WAITING FOR CONTAINERS TO BE READY ==="
 sleep 10
