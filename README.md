@@ -99,6 +99,7 @@ Choose the right template for your project:
 - ✅ **Template System**: Pre-built deployment patterns
 - ✅ **Error Handling**: Graceful failure with detailed logging
 - ✅ **Systemd Service**: Auto-restart on failure
+- ✅ **Multi-OS Support**: Ubuntu/Debian/CentOS/Fedora/Arch Linux
 
 ## Troubleshooting
 

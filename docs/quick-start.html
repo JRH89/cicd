@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Start Guide - CI/CD Deployment System</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Get your CI/CD deployment system running in 5 minutes. Quick start guide with step-by-step instructions.">
+    <meta name="keywords" content="CI/CD, quick start, installation, setup, deployment, webhook, automation">
+    <meta name="author" content="JRH89">
+    <link rel="canonical" href="https://jrh89.github.io/cicd/docs/quick-start.html">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Quick Start Guide - CI/CD Deployment System">
+    <meta property="og:description" content="Get your CI/CD deployment system running in 5 minutes. Quick start guide with step-by-step instructions.">
+    <meta property="og:image" content="https://jrh89.github.io/cicd/public/images/og.png">
+    <meta property="og:url" content="https://jrh89.github.io/cicd/docs/quick-start.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CI/CD Deployment System">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quick Start Guide - CI/CD Deployment System">
+    <meta name="twitter:description" content="Get your CI/CD deployment system running in 5 minutes. Quick start guide with step-by-step instructions.">
+    <meta name="twitter:image" content="https://jrh89.github.io/cicd/public/images/og.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../public/images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../public/images/icon.png">
+    <link rel="shortcut icon" href="../public/images/icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -26,18 +51,30 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <i class="fas fa-rocket text-2xl text-indigo-600 mr-2"></i>
-                        <span class="text-xl font-bold text-white">CI/CD</span>
+                        <img src="../public/images/icon.png" alt="CI/CD" class="h-8 w-8">
                     </a>
                     <div class="hidden md:ml-6 md:flex md:space-x-8">
                         <a href="index.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="quick-start.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Quick Start</a>
-                        <a href="webhook-setup.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Webhook Setup</a>
-                        <a href="troubleshooting.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Troubleshooting</a>
+                        
+                        <!-- Documentation Dropdown -->
+                        <div class="relative group">
+                            <button class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium text-white flex items-center">
+                                Documentation
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="py-1">
+                                    <a href="quick-start.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 font-semibold">Quick Start</a>
+                                    <a href="webhook-setup.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Webhook Setup</a>
+                                    <a href="troubleshooting.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Troubleshooting</a>
+                                    <a href="overview.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">System Overview</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
                         <i class="fab fa-github mr-2"></i>GitHub
                     </a>
                     <!-- Mobile menu button -->
@@ -73,6 +110,7 @@
     <section class="text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
+                <img src="public/images/icon.png" alt="CI/CD Deployment System" class="h-16 w-16 mb-6 mx-auto">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">
                     Quick Start Guide
                 </h1>
@@ -115,7 +153,7 @@
                             <i class="fas fa-server text-indigo-600 mt-1 mr-3"></i>
                             <div>
                                 <h4 class="font-semibold">Linux Server</h4>
-                                <p class="text-gray-600">Ubuntu/Debian/CentOS/Fedora with sudo access</p>
+                                <p class="text-gray-600">Ubuntu/Debian/CentOS/Fedora/Arch with sudo access</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -324,9 +362,60 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">Need help? Check the <a href="troubleshooting.html" class="text-indigo-400 hover:text-white">Troubleshooting Guide</a></p>
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo and Description -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="../public/images/icon.png" alt="CI/CD Deployment System" class="h-10 w-10 mr-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">CI/CD Deployment System</h3>
+                            <p class="text-gray-400 text-sm">Universal webhook-based deployment for modern applications</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm mt-2">
+                        🚀 Deploy with confidence • 🔄 Zero downtime • 🌐 Works anywhere
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="quick-start.html" class="text-gray-400 hover:text-white transition-colors">Quick Start</a></li>
+                        <li><a href="webhook-setup.html" class="text-gray-400 hover:text-white transition-colors">Webhook Setup</a></li>
+                        <li><a href="troubleshooting.html" class="text-gray-400 hover:text-white transition-colors">Troubleshooting</a></li>
+                        <li><a href="overview.html" class="text-gray-400 hover:text-white transition-colors">System Overview</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">GitHub Repository</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/issues" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Report Issues</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/blob/master/README.md" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/releases" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 mt-8 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                        © 2024 CI/CD Deployment System. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" title="GitHub Repository">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 

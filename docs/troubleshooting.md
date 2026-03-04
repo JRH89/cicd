@@ -65,6 +65,9 @@ Failed to locate executable /usr/bin/node: No such file or directory
    # CentOS/RHEL
    curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
    sudo yum install -y nodejs
+   
+   # Arch Linux
+   sudo pacman -S nodejs npm
    ```
 
 3. **Update service file manually:**

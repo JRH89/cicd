@@ -11,9 +11,23 @@ fi
 
 # Get current user (not root)
 REAL_USER=${SUDO_USER:-$USER}
-WEBHOOK_DIR="/home/$REAL_USER/CI-CD/webhook-server"
+# Handle Arch Linux user detection
+if [[ "$REAL_USER" == "root" ]]; then
+    # For Arch, try to get the actual user who ran sudo
+    REAL_USER=$(logname 2>/dev/null || echo $SUDO_USER)
+fi
+
+# Use appropriate home directory for the user
+if [[ -d "/home/$REAL_USER" ]]; then
+    WEBHOOK_DIR="/home/$REAL_USER/CI-CD/webhook-server"
+    REPOS_BASE_DIR=${REPOS_BASE_DIR:-"/home/$REAL_USER"}
+else
+    # Fallback for different home directory structures
+    WEBHOOK_DIR="$REAL_USER/CI-CD/webhook-server"
+    REPOS_BASE_DIR=${REPOS_BASE_DIR:-"$REAL_USER"}
+fi
+
 SERVICE_NAME="webhook-multi-repo"
-REPOS_BASE_DIR=${REPOS_BASE_DIR:-"/home/$REAL_USER"}
 
 echo "Installing for user: $REAL_USER"
 echo "Webhook directory: $WEBHOOK_DIR"
@@ -35,6 +49,11 @@ if ! command -v node &> /dev/null; then
     elif command -v dnf &> /dev/null; then
         # Fedora
         dnf install -y nodejs
+    elif command -v pacman &> /dev/null; then
+        # Arch Linux
+        echo "Detected Arch Linux, installing Node.js..."
+        # Update package database and install Node.js
+        pacman -Sy --noconfirm nodejs npm
     else
         echo "❌ Could not detect package manager. Please install Node.js manually:"
         echo "   https://nodejs.org/en/download/"
