@@ -1,23 +1,3 @@
-# CI/CD Deployment System
-
-```
-╔══════════════════════════════════════════════════════════════╗
-║                                                              ║
-║                    CI/CD Deployment System                   ║
-║                                                              ║
-║       Multi-Repository • Zero Downtime • Auto-Deploy         ║
-║                                                              ║
-║   ┌─────────────────────────────────────────────────────┐    ║
-║   │  Webhook Server: http://localhost:9001/deploy       │    ║
-║   └─────────────────────────────────────────────────────┘    ║
-║                                                              ║
-║      Setup: curl -sSL http://localhost:3000/user/cicd/       ║
-║            raw/main/scripts/setup-repo.sh | bash             ║
-║                                                              ║
-╚══════════════════════════════════════════════════════════════╝
-
-```
-
 ![CI/CD System](/public/images/cover.png)
 
 A zero-downtime webhook deployment system that works with any repository. One webhook server handles deployments for all your projects.
