@@ -18,6 +18,40 @@ REPOS_BASE_DIR=${REPOS_BASE_DIR:-"/home/$REAL_USER"}
 echo "Installing for user: $REAL_USER"
 echo "Webhook directory: $WEBHOOK_DIR"
 
+# Check for Node.js
+if ! command -v node &> /dev/null; then
+    echo "❌ Node.js is not installed"
+    echo "Installing Node.js..."
+    
+    # Detect OS and install Node.js
+    if command -v apt &> /dev/null; then
+        # Ubuntu/Debian
+        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+        apt-get install -y nodejs
+    elif command -v yum &> /dev/null; then
+        # CentOS/RHEL
+        curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+        yum install -y nodejs
+    elif command -v dnf &> /dev/null; then
+        # Fedora
+        dnf install -y nodejs
+    else
+        echo "❌ Could not detect package manager. Please install Node.js manually:"
+        echo "   https://nodejs.org/en/download/"
+        exit 1
+    fi
+    
+    # Verify installation
+    if ! command -v node &> /dev/null; then
+        echo "❌ Node.js installation failed"
+        exit 1
+    fi
+    
+    echo "✅ Node.js installed: $(node --version)"
+else
+    echo "✅ Node.js found: $(node --version)"
+fi
+
 # Stop existing service if running
 systemctl stop $SERVICE_NAME 2>/dev/null || true
 systemctl disable $SERVICE_NAME 2>/dev/null || true
@@ -43,6 +77,7 @@ chmod +x "$WEBHOOK_DIR"/*.js
 # Update service file with correct paths
 sed -i "s|__USER__|$REAL_USER|g" "$WEBHOOK_DIR/webhook-multi-repo.service"
 sed -i "s|__WEBHOOK_DIR__|$WEBHOOK_DIR|g" "$WEBHOOK_DIR/webhook-multi-repo.service"
+sed -i "s|/usr/bin/node|$(which node)|g" "$WEBHOOK_DIR/webhook-multi-repo.service"
 
 # Add REPOS_BASE_DIR environment variable to service
 sed -i "/\[Service\]/a Environment=REPOS_BASE_DIR=$REPOS_BASE_DIR" "$WEBHOOK_DIR/webhook-multi-repo.service"
