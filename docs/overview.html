@@ -8,13 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .gradient-text {
-            background: linear-gradient(135deg, #430098 0%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, #430098 0%, #ffffff 100%);
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
         }
     .main-gradient {
             background: #111827;
@@ -40,7 +37,7 @@
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-white transition-colors">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
                         <i class="fab fa-github mr-2"></i>GitHub
                     </a>
                 </div>
@@ -49,7 +46,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-gradient text-white py-16">
+    <section class="text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">
@@ -68,16 +65,16 @@
             <!-- Sidebar -->
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
                     <nav class="space-y-2">
-                        <a href="#overview" class="block text-white hover:text-indigo-600 transition-colors">📋 Overview</a>
-                        <a href="#architecture" class="block text-white hover:text-indigo-600 transition-colors">🏗️ Architecture</a>
-                        <a href="#components" class="block text-white hover:text-indigo-600 transition-colors">🔧 Components</a>
-                        <a href="#workflow" class="block text-white hover:text-indigo-600 transition-colors">🔄 Workflow</a>
-                        <a href="#features" class="block text-white hover:text-indigo-600 transition-colors">🎯 Features</a>
-                        <a href="#installation" class="block text-white hover:text-indigo-600 transition-colors">📦 Installation</a>
-                        <a href="#monitoring" class="block text-white hover:text-indigo-600 transition-colors">📊 Monitoring</a>
-                        <a href="#advanced" class="block text-white hover:text-indigo-600 transition-colors">🚀 Advanced Usage</a>
+                        <a href="#overview" class="block text-gray-900 hover:text-indigo-600 transition-colors">📋 Overview</a>
+                        <a href="#architecture" class="block text-gray-900 hover:text-indigo-600 transition-colors">🏗️ Architecture</a>
+                        <a href="#components" class="block text-gray-900 hover:text-indigo-600 transition-colors">🔧 Components</a>
+                        <a href="#workflow" class="block text-gray-900 hover:text-indigo-600 transition-colors">🔄 Workflow</a>
+                        <a href="#features" class="block text-gray-900 hover:text-indigo-600 transition-colors">🎯 Features</a>
+                        <a href="#installation" class="block text-gray-900 hover:text-indigo-600 transition-colors">📦 Installation</a>
+                        <a href="#monitoring" class="block text-gray-900 hover:text-indigo-600 transition-colors">📊 Monitoring</a>
+                        <a href="#advanced" class="block text-gray-900 hover:text-indigo-600 transition-colors">🚀 Advanced Usage</a>
                     </nav>
                 </div>
             </div>
@@ -86,7 +83,7 @@
             <div class="lg:col-span-3 space-y-8">
                 <!-- Overview -->
                 <section id="overview" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-info-circle text-blue-600 mr-2"></i>System Overview
                     </h2>
                     
@@ -116,13 +113,13 @@
 
                 <!-- Architecture -->
                 <section id="architecture" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-sitemap text-purple-600 mr-2"></i>Architecture
                     </h2>
                     
                     <div class="space-y-4">
                         <div class="text-center">
-                            <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-6">
+                            <div class="bg-gradient-to-r from-purple-500 to-indigo-600 text-gray-900 rounded-lg p-6">
                                 <p class="text-lg font-semibold mb-4">Deployment Flow</p>
                                 <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
                                     <div class="bg-white bg-opacity-20 rounded px-3 py-2">
@@ -150,16 +147,16 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-white mb-2">Input</h4>
-                                <ul class="text-sm text-white space-y-1">
+                                <h4 class="font-semibold text-gray-900 mb-2">Input</h4>
+                                <ul class="text-sm text-gray-900 space-y-1">
                                     <li>• Git push to main/master branch</li>
                                     <li>• Webhook payload from Git provider</li>
                                     <li>• Repository name and branch info</li>
                                 </ul>
                             </div>
                             <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-white mb-2">Output</h4>
-                                <ul class="text-sm text-white space-y-1">
+                                <h4 class="font-semibold text-gray-900 mb-2">Output</h4>
+                                <ul class="text-sm text-gray-900 space-y-1">
                                     <li>• Updated Docker containers</li>
                                     <li>• Deployment logs</li>
                                     <li>• Health status</li>
@@ -171,17 +168,17 @@
 
                 <!-- Components -->
                 <section id="components" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-cogs text-orange-600 mr-2"></i>Components
                     </h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-white mb-2">
+                            <h4 class="font-semibold text-gray-900 mb-2">
                                 <i class="fas fa-server text-indigo-600 mr-2"></i>Webhook Server
                             </h4>
-                            <p class="text-white text-sm mb-2">Node.js application listening on port 9001</p>
-                            <ul class="text-xs text-gray-500 space-y-1">
+                            <p class="text-gray-900 text-sm mb-2">Node.js application listening on port 9001</p>
+                            <ul class="text-xs text-gray-900 space-y-1">
                                 <li>• Receives webhook requests</li>
                                 <li>• Validates payload</li>
                                 <li>• Triggers deployments</li>
@@ -190,11 +187,11 @@
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-white mb-2">
+                            <h4 class="font-semibold text-gray-900 mb-2">
                                 <i class="fas fa-file-code text-green-600 mr-2"></i>Deploy Scripts
                             </h4>
-                            <p class="text-white text-sm mb-2">Customizable per-repository deployment logic</p>
-                            <ul class="text-xs text-gray-500 space-y-1">
+                            <p class="text-gray-900 text-sm mb-2">Customizable per-repository deployment logic</p>
+                            <ul class="text-xs text-gray-900 space-y-1">
                                 <li>• Auto-generated per project type</li>
                                 <li>• Docker, Node.js, static sites</li>
                                 <li>• Customizable commands</li>
@@ -203,11 +200,11 @@
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-white mb-2">
+                            <h4 class="font-semibold text-gray-900 mb-2">
                                 <i class="fas fa-cogs text-purple-600 mr-2"></i>Systemd Service
                             </h4>
-                            <p class="text-white text-sm mb-2">Manages webhook server as a system service</p>
-                            <ul class="text-xs text-gray-500 space-y-1">
+                            <p class="text-gray-900 text-sm mb-2">Manages webhook server as a system service</p>
+                            <ul class="text-xs text-gray-900 space-y-1">
                                 <li>• Automatic restarts</li>
                                 <li>• Log management</li>
                                 <li>• Process monitoring</li>
@@ -216,11 +213,11 @@
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-white mb-2">
+                            <h4 class="font-semibold text-gray-900 mb-2">
                                 <i class="fab fa-docker text-blue-600 mr-2"></i>Docker
                             </h4>
-                            <p class="text-white text-sm mb-2">Container-based deployment platform</p>
-                            <ul class="text-xs text-gray-500 space-y-1">
+                            <p class="text-gray-900 text-sm mb-2">Container-based deployment platform</p>
+                            <ul class="text-xs text-gray-900 space-y-1">
                                 <li>• Clean builds without cache</li>
                                 <li>• Zero-downtime deployments</li>
                                 <li>• Container isolation</li>
@@ -232,7 +229,7 @@
 
                 <!-- Workflow -->
                 <section id="workflow" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-sync-alt text-green-600 mr-2"></i>Workflow
                     </h2>
                     
@@ -241,31 +238,31 @@
                             <div class="bg-gray-100 rounded-lg p-3 text-center">
                                 <div class="text-2xl mb-2">1️⃣</div>
                                 <h4 class="font-semibold text-sm">Developer Push</h4>
-                                <p class="text-xs text-white">Git push to repository</p>
+                                <p class="text-xs text-gray-900">Git push to repository</p>
                             </div>
                             <div class="text-center text-gray-400 self-center">→</div>
                             <div class="bg-gray-100 rounded-lg p-3 text-center">
                                 <div class="text-2xl mb-2">2️⃣</div>
                                 <h4 class="font-semibold text-sm">Git Provider</h4>
-                                <p class="text-xs text-white">Sends webhook</p>
+                                <p class="text-xs text-gray-900">Sends webhook</p>
                             </div>
                             <div class="text-center text-gray-400 self-center">→</div>
                             <div class="bg-gray-100 rounded-lg p-3 text-center">
                                 <div class="text-2xl mb-2">3️⃣</div>
                                 <h4 class="font-semibold text-sm">Webhook Server</h4>
-                                <p class="text-xs text-white">Receives & validates</p>
+                                <p class="text-xs text-gray-900">Receives & validates</p>
                             </div>
                             <div class="text-center text-gray-400 self-center">→</div>
                             <div class="bg-gray-100 rounded-lg p-3 text-center">
                                 <div class="text-2xl mb-2">4️⃣</div>
                                 <h4 class="font-semibold text-sm">Deploy Script</h4>
-                                <p class="text-xs text-white">Runs in repo directory</p>
+                                <p class="text-xs text-gray-900">Runs in repo directory</p>
                             </div>
                             <div class="text-center text-gray-400 self-center">→</div>
                             <div class="bg-gray-100 rounded-lg p-3 text-center">
                                 <div class="text-2xl mb-2">5️⃣</div>
                                 <h4 class="font-semibold text-sm">Docker</h4>
-                                <p class="text-xs text-white">Builds & deploys</p>
+                                <p class="text-xs text-gray-900">Builds & deploys</p>
                             </div>
                         </div>
 
@@ -286,7 +283,7 @@
 
                 <!-- Features -->
                 <section id="features" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-star text-yellow-600 mr-2"></i>Key Features
                     </h2>
                     
@@ -343,7 +340,7 @@
 
                 <!-- Installation -->
                 <section id="installation" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-download text-indigo-600 mr-2"></i>Installation Requirements
                     </h2>
                     
@@ -372,7 +369,7 @@
 
                 <!-- Directory Structure -->
                 <section class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-folder-tree text-orange-600 mr-2"></i>Directory Structure
                     </h2>
                     
@@ -389,7 +386,7 @@
 
                 <!-- Monitoring -->
                 <section id="monitoring" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-chart-line text-green-600 mr-2"></i>Monitoring
                     </h2>
                     
@@ -413,7 +410,7 @@
 
                 <!-- Advanced Usage -->
                 <section id="advanced" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-white mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
                         <i class="fas fa-rocket text-purple-600 mr-2"></i>Advanced Usage
                     </h2>
                     
@@ -451,7 +448,7 @@
                 </section>
 
                 <!-- Contributing -->
-                <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg p-8">
+                <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-gray-900 rounded-lg p-8">
                     <h2 class="text-2xl font-bold mb-4">
                         <i class="fab fa-github mr-2"></i>Contributing
                     </h2>
@@ -482,7 +479,7 @@
     <footer class="bg-gray-900 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-gray-400 mb-2">Happy deploying! 🚀</p>
-            <p class="text-gray-500 text-sm">🚀 Deploy with confidence • 🔄 Zero downtime • 🌐 Works anywhere</p>
+            <p class="text-white text-sm">🚀 Deploy with confidence • 🔄 Zero downtime • 🌐 Works anywhere</p>
         </div>
     </footer>
 </body>

@@ -15,13 +15,10 @@
             animation: float 6s ease-in-out infinite;
         }
         .gradient-text {
-            background: linear-gradient(135deg, #430098 0%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, #430098 0%, #ffffff 100%);
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
         }
         .main-gradient {
             background: #111827;
@@ -72,7 +69,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient text-white py-20">
+    <section id="home" class="min-h-screen h-full flex items-center justify-center text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="float-animation">
