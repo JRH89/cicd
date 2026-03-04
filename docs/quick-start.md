@@ -3,7 +3,7 @@
 ## 🚀 Get Your CI/CD System Running in 5 Minutes
 
 ### Prerequisites
-- Linux server (Ubuntu/Debian/CentOS/Fedora)
+- Linux server (Ubuntu/Debian/CentOS/Fedora/Arch)
 - Docker installed
 - Git account (Gitea or GitHub)
 - SSH keys set up with your Git provider

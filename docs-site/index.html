@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Deployment System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .feature p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .feature ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature li {
+            background: white;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            border-left: 3px solid #e9ecef;
+        }
+        
+        .install-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .install-section h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .docs-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .doc-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            text-decoration: none;
+            color: #495057;
+            transition: all 0.3s ease;
+        }
+        
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .doc-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">CI/CD</div>
+            <div class="tagline">Multi-Repository • Zero Downtime • Auto-Deploy</div>
+        </div>
+        
+        <nav class="nav">
+            <a href="#features" class="nav-item">Features</a>
+            <a href="#install" class="nav-item">Install</a>
+            <a href="#docs" class="nav-item">Documentation</a>
+        </nav>
+        
+        <section id="features" class="features">
+            <div class="feature">
+                <h3>🚀 Multi-Repository Support</h3>
+                <p>Deploy any number of repositories from a single webhook server. Perfect for managing multiple projects.</p>
+                <ul>
+                    <li>Automatic repository detection</li>
+                    <li>Custom deployment scripts</li>
+                    <li>Individual log files</li>
+                </ul>
+            </div>
+            
+            <div class="feature">
+                <h3>🔄 Zero Downtime</h3>
+                <p>Docker-based deployments with automatic container recreation. No service interruption during updates.</p>
+                <ul>
+                    <li>Clean builds without cache</li>
+                    <li>Rollback support</li>
+                    <li>Health checks</li>
+                </ul>
+            </div>
+            
+            <div class="feature">
+                <h3>🌐 Universal Installation</h3>
+                <p>Works for any user, any directory structure. No hardcoded paths or usernames.</p>
+                <ul>
+                    <li>Dynamic user detection</li>
+                    <li>Configurable base directory</li>
+                    <li>Multi-OS support</li>
+                </ul>
+            </div>
+            
+            <div class="feature">
+                <h3>🔧 Smart Project Detection</h3>
+                <p>Automatically detects project type and generates appropriate deployment scripts.</p>
+                <ul>
+                    <li>Docker projects</li>
+                    <li>Node.js applications</li>
+                    <li>Static sites</li>
+                    <li>Custom templates</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="install" class="install-section">
+            <h2>🚀 Quick Installation</h2>
+            <p>Get your CI/CD system running in seconds with this single command:</p>
+            <div class="code-block">curl -sSL https://github.com/jrh89/cicd/raw/master/webhook-server/install-server.sh | sudo bash</div>
+            <p><strong>What this does:</strong></p>
+            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <li>✅ Installs Node.js if missing</li>
+                <li>✅ Creates webhook server in your home directory</li>
+                <li>✅ Configures systemd service</li>
+                <li>✅ Starts server on port 9001</li>
+            </ul>
+        </section>
+        
+        <section id="docs" class="docs-section">
+            <h2>📚 Complete Documentation</h2>
+            <p>Everything you need to set up and troubleshoot your CI/CD system.</p>
+            
+            <div class="docs-grid">
+                <a href="docs/quick-start.md" class="doc-card">
+                    <h4>🚀 Quick Start</h4>
+                    <p>Get running in 5 minutes</p>
+                </a>
+                
+                <a href="docs/webhook-setup.md" class="doc-card">
+                    <h4>🔗 Webhook Setup</h4>
+                    <p>Gitea & GitHub configuration</p>
+                </a>
+                
+                <a href="docs/troubleshooting.md" class="doc-card">
+                    <h4>🔧 Troubleshooting</h4>
+                    <p>Fix common issues</p>
+                </a>
+                
+                <a href="docs/README.md" class="doc-card">
+                    <h4>📋 System Overview</h4>
+                    <p>Complete documentation</p>
+                </a>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <p><strong>CI/CD Deployment System</strong> • Universal webhook-based deployment for modern applications</p>
+            <p>🚀 Deploy with confidence • 🔄 Zero downtime • 🌐 Works anywhere</p>
+        </footer>
+    </div>
+</body>
+</html>
