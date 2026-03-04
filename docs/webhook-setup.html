@@ -33,14 +33,14 @@
                         <span class="text-xl font-bold gradient-text">CI/CD</span>
                     </div>
                     <div class="hidden md:ml-6 md:flex md:space-x-8">
-                        <a href="index.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="quick-start.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Quick Start</a>
+                        <a href="index.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="quick-start.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Quick Start</a>
                         <a href="webhook-setup.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Webhook Setup</a>
-                        <a href="troubleshooting.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Troubleshooting</a>
+                        <a href="troubleshooting.html" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Troubleshooting</a>
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-white transition-colors">
                         <i class="fab fa-github mr-2"></i>GitHub
                     </a>
                 </div>
@@ -63,19 +63,19 @@
     </section>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-white">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Sidebar -->
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
                     <nav class="space-y-2">
-                        <a href="#gitea-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🐧 Gitea Setup</a>
-                        <a href="#github-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🐙 GitHub Setup</a>
-                        <a href="#ssh-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🔐 SSH Setup</a>
-                        <a href="#branch-config" class="block text-gray-600 hover:text-indigo-600 transition-colors">🌿 Branch Configuration</a>
-                        <a href="#testing" class="block text-gray-600 hover:text-indigo-600 transition-colors">🧪 Testing</a>
-                        <a href="#issues" class="block text-gray-600 hover:text-indigo-600 transition-colors">🚨 Common Issues</a>
+                        <a href="#gitea-setup" class="block text-gray-300 hover:text-indigo-400 transition-colors">🐧 Gitea Setup</a>
+                        <a href="#github-setup" class="block text-gray-300 hover:text-indigo-400 transition-colors">🐙 GitHub Setup</a>
+                        <a href="#ssh-setup" class="block text-gray-300 hover:text-indigo-400 transition-colors">🔐 SSH Setup</a>
+                        <a href="#branch-config" class="block text-gray-300 hover:text-indigo-400 transition-colors">🌿 Branch Configuration</a>
+                        <a href="#testing" class="block text-gray-300 hover:text-indigo-400 transition-colors">🧪 Testing</a>
+                        <a href="#issues" class="block text-gray-300 hover:text-indigo-400 transition-colors">🚨 Common Issues</a>
                     </nav>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             <div class="lg:col-span-2 space-y-8">
                 <!-- Gitea Setup -->
                 <section id="gitea-setup" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fab fa-git-alt text-orange-600 mr-2"></i>Gitea Webhook Setup
                     </h2>
                     
@@ -99,7 +99,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 1: Get Your Webhook URL</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 1: Get Your Webhook URL</h4>
                             <p class="text-gray-600 mb-2">Find your server's IP address:</p>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code>hostname -I | awk '{print $1}'</code>
@@ -108,7 +108,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 2: Add Webhook in Gitea</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 2: Add Webhook in Gitea</h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
                                 <li><strong>Navigate to your repository</strong> - Go to your Gitea instance and select your repository</li>
                                 <li><strong>Go to Webhooks settings</strong> - Click <strong>Settings</strong> in the repository menu, then click <strong>Webhooks</strong> in the left sidebar</li>
@@ -117,7 +117,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 3: Configure Webhook Settings</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 3: Configure Webhook Settings</h4>
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                                 <table class="text-sm">
                                     <tr class="border-b">
@@ -153,7 +153,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 4: Save and Test</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 4: Save and Test</h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
                                 <li>Click <strong>Add Webhook</strong></li>
                                 <li>Click the webhook name to view details</li>
@@ -165,13 +165,13 @@
 
                 <!-- GitHub Setup -->
                 <section id="github-setup" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fab fa-github text-gray-800 mr-2"></i>GitHub Webhook Setup
                     </h2>
                     
                     <div class="space-y-6">
                         <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Prerequisites</h4>
+                            <h4 class="font-semibold text-white mb-2">Prerequisites</h4>
                             <ul class="text-sm text-gray-600 space-y-1">
                                 <li>• GitHub account</li>
                                 <li>• SSH keys configured with GitHub</li>
@@ -180,7 +180,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 1: Get Your Webhook URL</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 1: Get Your Webhook URL</h4>
                             <p class="text-gray-600 mb-2">Same as Gitea - find your server IP:</p>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code>hostname -I | awk '{print $1}'</code>
@@ -189,7 +189,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 2: Add Webhook in GitHub</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 2: Add Webhook in GitHub</h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
                                 <li><strong>Navigate to your repository</strong> - Go to github.com and select your repository</li>
                                 <li><strong>Go to Webhooks settings</strong> - Click <strong>Settings</strong> tab, then click <strong>Webhooks</strong> in the left sidebar</li>
@@ -198,7 +198,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 3: Configure Webhook Settings</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 3: Configure Webhook Settings</h4>
                             <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                                 <table class="text-sm">
                                     <tr class="border-b">
@@ -226,7 +226,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Step 4: Save and Test</h4>
+                            <h4 class="font-semibold text-white mb-2">Step 4: Save and Test</h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
                                 <li>Click <strong>Add webhook</strong></li>
                                 <li>GitHub will show you recent deliveries</li>
@@ -238,13 +238,13 @@
 
                 <!-- SSH Setup -->
                 <section id="ssh-setup" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fas fa-key text-yellow-600 mr-2"></i>SSH Setup (Required for Both)
                     </h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">
+                            <h4 class="font-semibold text-white mb-2">
                                 <i class="fab fa-git-alt text-orange-600 mr-2"></i>For Gitea:
                             </h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
@@ -269,7 +269,7 @@
                         </div>
                         
                         <div class="border border-gray-200 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">
+                            <h4 class="font-semibold text-white mb-2">
                                 <i class="fab fa-github text-gray-800 mr-2"></i>For GitHub:
                             </h4>
                             <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
@@ -297,13 +297,13 @@
 
                 <!-- Branch Configuration -->
                 <section id="branch-config" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fas fa-code-branch text-green-600 mr-2"></i>Branch Configuration
                     </h2>
                     
                     <div class="space-y-4">
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Determine Your Main Branch</h4>
+                            <h4 class="font-semibold text-white mb-2">Determine Your Main Branch</h4>
                             <p class="text-gray-600 mb-2">Check your repository's default branch:</p>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code>git branch -r</code>
@@ -312,7 +312,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Set Webhook Branch Filter Accordingly</h4>
+                            <h4 class="font-semibold text-white mb-2">Set Webhook Branch Filter Accordingly</h4>
                             <ul class="text-sm text-gray-600 space-y-1">
                                 <li>• If you see <code>origin/main</code> → Use <code>main</code></li>
                                 <li>• If you see <code>origin/master</code> → Use <code>master</code></li>
@@ -320,7 +320,7 @@
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Update Deploy Script if Needed</h4>
+                            <h4 class="font-semibold text-white mb-2">Update Deploy Script if Needed</h4>
                             <p class="text-gray-600 mb-2">Your <code>deploy.sh</code> should match your main branch:</p>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code>echo "=== PULLING LATEST CHANGES ==="<br>git pull origin main  # or git pull origin master</code>
@@ -331,27 +331,27 @@
 
                 <!-- Testing -->
                 <section id="testing" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fas fa-vial text-purple-600 mr-2"></i>Testing Your Webhook
                     </h2>
                     
                     <div class="space-y-6">
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Method 1: Push Test</h4>
+                            <h4 class="font-semibold text-white mb-2">Method 1: Push Test</h4>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code># Make a small change<br>echo "test" >> test.txt<br>git add test.txt<br>git commit -m "Test webhook"<br>git push origin main</code>
                             </div>
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Method 2: Manual Test</h4>
+                            <h4 class="font-semibold text-white mb-2">Method 2: Manual Test</h4>
                             <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
                                 <code>curl -X POST http://localhost:9001/deploy \<br>  -H "Content-Type: application/json" \<br>  -d '{<br>    "ref": "refs/heads/main",<br>    "repository": {<br>      "name": "your-repo-name"<br>    }<br>  }'</code>
                             </div>
                         </div>
 
                         <div>
-                            <h4 class="font-semibold text-gray-900 mb-2">Method 3: Built-in Test</h4>
+                            <h4 class="font-semibold text-white mb-2">Method 3: Built-in Test</h4>
                             <ul class="text-sm text-gray-600 space-y-1">
                                 <li>• <strong>Gitea</strong>: Use "Test Delivery" button in webhook settings</li>
                                 <li>• <strong>GitHub</strong>: View recent deliveries in webhook settings</li>
@@ -371,7 +371,7 @@
 
                 <!-- Common Issues -->
                 <section id="issues" class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-4">
                         <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>Common Webhook Issues
                     </h2>
                     
