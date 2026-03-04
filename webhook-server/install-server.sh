@@ -27,10 +27,16 @@ mkdir -p "$WEBHOOK_DIR"
 chown -R "$REAL_USER:$REAL_USER" "$WEBHOOK_DIR"
 chmod 755 "$WEBHOOK_DIR"
 
-# Copy files (assuming script is run from cicd directory)
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cp "$SCRIPT_DIR/webhook-multi-repo.js" "$WEBHOOK_DIR/"
-cp "$SCRIPT_DIR/webhook-multi-repo.service" "$WEBHOOK_DIR/"
+# Download files from GitHub
+echo "📥 Downloading webhook server files..."
+curl -sSL "https://github.com/jrh89/cicd/raw/master/webhook-server/webhook-multi-repo.js" -o "$WEBHOOK_DIR/webhook-multi-repo.js" || {
+    echo "❌ Failed to download webhook-multi-repo.js"
+    exit 1
+}
+curl -sSL "https://github.com/jrh89/cicd/raw/master/webhook-server/webhook-multi-repo.service" -o "$WEBHOOK_DIR/webhook-multi-repo.service" || {
+    echo "❌ Failed to download webhook-multi-repo.service"
+    exit 1
+}
 chown "$REAL_USER:$REAL_USER" "$WEBHOOK_DIR"/*.js "$WEBHOOK_DIR"/*.service
 chmod +x "$WEBHOOK_DIR"/*.js
 

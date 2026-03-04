@@ -1,18 +1,18 @@
-# Universal CI/CD Deployment System
+# CI/CD Deployment System
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║                                                              ║
-║                 🚀 Universal CI/CD System                    ║
+║                    CI/CD Deployment System                   ║
 ║                                                              ║
-║   Multi-Repository • Zero Downtime • Auto-Deploy             ║
+║       Multi-Repository • Zero Downtime • Auto-Deploy         ║
 ║                                                              ║
 ║   ┌─────────────────────────────────────────────────────┐    ║
 ║   │  Webhook Server: http://localhost:9001/deploy       │    ║
 ║   └─────────────────────────────────────────────────────┘    ║
 ║                                                              ║
-║   Setup: curl -sSL http://localhost:3000/user/cicd/          ║
-║           raw/main/scripts/setup-repo.sh | bash              ║
+║      Setup: curl -sSL http://localhost:3000/user/cicd/       ║
+║            raw/main/scripts/setup-repo.sh | bash             ║
 ║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -170,14 +170,3 @@ If you have an existing webhook deployment:
 - **Service**: `webhook-multi-repo`
 - **Port**: 9001
 - **Base Directory**: `$REPOS_BASE_DIR` (default: `~/`)
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch
-3. Test deployment patterns
-4. Submit pull request
-
-## License
-
-MIT License - feel free to use and modify for your projects.
