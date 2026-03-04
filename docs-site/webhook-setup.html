@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Setup Guide - CI/CD Deployment System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-rocket text-2xl text-indigo-600 mr-2"></i>
+                        <span class="text-xl font-bold gradient-text">CI/CD</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="quick-start.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Quick Start</a>
+                        <a href="webhook-setup.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Webhook Setup</a>
+                        <a href="troubleshooting.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Troubleshooting</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Webhook Setup Guide
+                </h1>
+                <p class="text-xl md:text-2xl text-indigo-100">
+                    Configure Gitea and GitHub webhooks for automated deployments
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                    <nav class="space-y-2">
+                        <a href="#gitea-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🐧 Gitea Setup</a>
+                        <a href="#github-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🐙 GitHub Setup</a>
+                        <a href="#ssh-setup" class="block text-gray-600 hover:text-indigo-600 transition-colors">🔐 SSH Setup</a>
+                        <a href="#branch-config" class="block text-gray-600 hover:text-indigo-600 transition-colors">🌿 Branch Configuration</a>
+                        <a href="#testing" class="block text-gray-600 hover:text-indigo-600 transition-colors">🧪 Testing</a>
+                        <a href="#issues" class="block text-gray-600 hover:text-indigo-600 transition-colors">🚨 Common Issues</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Gitea Setup -->
+                <section id="gitea-setup" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fab fa-git-alt text-orange-600 mr-2"></i>Gitea Webhook Setup
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-orange-900 mb-2">Prerequisites</h4>
+                            <ul class="text-sm text-orange-800 space-y-1">
+                                <li>• Gitea server access</li>
+                                <li>• SSH keys configured with Gitea</li>
+                                <li>• Repository already created in Gitea</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 1: Get Your Webhook URL</h4>
+                            <p class="text-gray-600 mb-2">Find your server's IP address:</p>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code>hostname -I | awk '{print $1}'</code>
+                            </div>
+                            <p class="text-gray-600 mt-2">Your webhook URL will be: <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">http://YOUR_SERVER_IP:9001/deploy</code></p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 2: Add Webhook in Gitea</h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li><strong>Navigate to your repository</strong> - Go to your Gitea instance and select your repository</li>
+                                <li><strong>Go to Webhooks settings</strong> - Click <strong>Settings</strong> in the repository menu, then click <strong>Webhooks</strong> in the left sidebar</li>
+                                <li><strong>Click "Add Webhook"</strong></li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 3: Configure Webhook Settings</h4>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <table class="text-sm">
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Target URL:</td>
+                                        <td class="py-2"><code>http://YOUR_SERVER_IP:9001/deploy</code></td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">HTTP Method:</td>
+                                        <td class="py-2">POST</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Content Type:</td>
+                                        <td class="py-2">application/json</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Secret:</td>
+                                        <td class="py-2">Leave empty for now</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Events:</td>
+                                        <td class="py-2">✅ Push Events</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Branch Filter:</td>
+                                        <td class="py-2">main</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-2">Active:</td>
+                                        <td class="py-2">✅ Yes</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 4: Save and Test</h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li>Click <strong>Add Webhook</strong></li>
+                                <li>Click the webhook name to view details</li>
+                                <li>Click <strong>Test Delivery</strong> to test</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GitHub Setup -->
+                <section id="github-setup" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fab fa-github text-gray-800 mr-2"></i>GitHub Webhook Setup
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Prerequisites</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• GitHub account</li>
+                                <li>• SSH keys configured with GitHub</li>
+                                <li>• Repository already created on GitHub</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 1: Get Your Webhook URL</h4>
+                            <p class="text-gray-600 mb-2">Same as Gitea - find your server IP:</p>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code>hostname -I | awk '{print $1}'</code>
+                            </div>
+                            <p class="text-gray-600 mt-2">Your webhook URL: <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded">http://YOUR_SERVER_IP:9001/deploy</code></p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 2: Add Webhook in GitHub</h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li><strong>Navigate to your repository</strong> - Go to github.com and select your repository</li>
+                                <li><strong>Go to Webhooks settings</strong> - Click <strong>Settings</strong> tab, then click <strong>Webhooks</strong> in the left sidebar</li>
+                                <li><strong>Click "Add webhook"</strong></li>
+                            </ol>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 3: Configure Webhook Settings</h4>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <table class="text-sm">
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Payload URL:</td>
+                                        <td class="py-2"><code>http://YOUR_SERVER_IP:9001/deploy</code></td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Content type:</td>
+                                        <td class="py-2">application/json</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Secret:</td>
+                                        <td class="py-2">Leave empty for now</td>
+                                    </tr>
+                                    <tr class="border-b">
+                                        <td class="font-semibold py-2">Which events:</td>
+                                        <td class="py-2">Just the push event</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-semibold py-2">Active:</td>
+                                        <td class="py-2">✅ Yes</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Step 4: Save and Test</h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li>Click <strong>Add webhook</strong></li>
+                                <li>GitHub will show you recent deliveries</li>
+                                <li>Click on a delivery to see details</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SSH Setup -->
+                <section id="ssh-setup" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-key text-yellow-600 mr-2"></i>SSH Setup (Required for Both)
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">
+                                <i class="fab fa-git-alt text-orange-600 mr-2"></i>For Gitea:
+                            </h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li><strong>Generate SSH key</strong> (if you don't have one):
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>ssh-keygen -t ed25519 -C "your-email@example.com"</code>
+                                    </div>
+                                </li>
+                                <li><strong>Add SSH key to Gitea</strong>:
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>cat ~/.ssh/id_ed25519.pub</code>
+                                    </div>
+                                </li>
+                                <li>Copy the output, go to Gitea → Settings → SSH/GPG Keys</li>
+                                <li>Click "Add Key" and paste your public key</li>
+                                <li><strong>Test connection</strong>:
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>ssh -T git@your-gitea-server.com</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">
+                                <i class="fab fa-github text-gray-800 mr-2"></i>For GitHub:
+                            </h4>
+                            <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+                                <li><strong>Generate SSH key</strong> (if you don't have one):
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>ssh-keygen -t ed25519 -C "your-email@example.com"</code>
+                                    </div>
+                                </li>
+                                <li><strong>Add SSH key to GitHub</strong>:
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>cat ~/.ssh/id_ed25519.pub</code>
+                                    </div>
+                                </li>
+                                <li>Copy the output, go to GitHub → Settings → SSH and GPG keys</li>
+                                <li>Click "New SSH key" and paste your public key</li>
+                                <li><strong>Test connection</strong>:
+                                    <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-xs mt-1">
+                                        <code>ssh -T git@github.com</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Branch Configuration -->
+                <section id="branch-config" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-code-branch text-green-600 mr-2"></i>Branch Configuration
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Determine Your Main Branch</h4>
+                            <p class="text-gray-600 mb-2">Check your repository's default branch:</p>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code>git branch -r</code>
+                            </div>
+                            <p class="text-gray-600 mt-2">Look for <code>origin/main</code> or <code>origin/master</code></p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Set Webhook Branch Filter Accordingly</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• If you see <code>origin/main</code> → Use <code>main</code></li>
+                                <li>• If you see <code>origin/master</code> → Use <code>master</code></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Update Deploy Script if Needed</h4>
+                            <p class="text-gray-600 mb-2">Your <code>deploy.sh</code> should match your main branch:</p>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code>echo "=== PULLING LATEST CHANGES ==="<br>git pull origin main  # or git pull origin master</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testing -->
+                <section id="testing" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-vial text-purple-600 mr-2"></i>Testing Your Webhook
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Method 1: Push Test</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code># Make a small change<br>echo "test" >> test.txt<br>git add test.txt<br>git commit -m "Test webhook"<br>git push origin main</code>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Method 2: Manual Test</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                                <code>curl -X POST http://localhost:9001/deploy \<br>  -H "Content-Type: application/json" \<br>  -d '{<br>    "ref": "refs/heads/main",<br>    "repository": {<br>      "name": "your-repo-name"<br>    }<br>  }'</code>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Method 3: Built-in Test</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• <strong>Gitea</strong>: Use "Test Delivery" button in webhook settings</li>
+                                <li>• <strong>GitHub</strong>: View recent deliveries in webhook settings</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-900 mb-2">Verify Success</h4>
+                            <p class="text-green-800 mb-2">Check your webhook server logs:</p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm">
+                                <code>journalctl -u webhook-multi-repo -f</code>
+                            </div>
+                            <p class="text-green-800 mt-2">You should see deployment logs indicating success!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Common Issues -->
+                <section id="issues" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>Common Webhook Issues
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "404 Not Found"</h4>
+                            <p class="text-red-800"><strong>Cause:</strong> Wrong webhook URL</p>
+                            <p class="text-red-800"><strong>Fix:</strong> Verify your server IP and port 9001 is accessible</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "400 Bad Request"</h4>
+                            <p class="text-red-800"><strong>Cause:</strong> Wrong content type</p>
+                            <p class="text-red-800"><strong>Fix:</strong> Ensure "application/json" is selected</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "No deployment triggered"</h4>
+                            <p class="text-red-800"><strong>Cause:</strong> Wrong branch filter</p>
+                            <p class="text-red-800"><strong>Fix:</strong> Match webhook branch filter to your actual main branch</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "Git pull failed"</h4>
+                            <p class="text-red-800"><strong>Cause:</strong> SSH keys not configured</p>
+                            <p class="text-red-800"><strong>Fix:</strong> Set up SSH keys with your Git provider</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Success -->
+                <section class="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg p-8">
+                    <h2 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-check-circle mr-2"></i>Webhook Setup Complete!
+                    </h2>
+                    <p class="text-lg mb-4">Your webhook is now configured and ready to trigger deployments!</p>
+                    <ul class="space-y-2">
+                        <li>✅ Webhook server running on port 9001</li>
+                        <li>✅ Correct webhook URL configured</li>
+                        <li>✅ SSH keys set up with Git provider</li>
+                        <li>✅ Branch filter matches your main branch</li>
+                        <li>✅ Test push triggers deployment</li>
+                        <li>✅ Deployment logs show success</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">Need help? Check the <a href="troubleshooting.html" class="text-indigo-400 hover:text-white">Troubleshooting Guide</a></p>
+        </div>
+    </footer>
+</body>
+</html>

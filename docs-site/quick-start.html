@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start Guide - CI/CD Deployment System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-rocket text-2xl text-indigo-600 mr-2"></i>
+                        <span class="text-xl font-bold gradient-text">CI/CD</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="quick-start.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Quick Start</a>
+                        <a href="webhook-setup.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Webhook Setup</a>
+                        <a href="troubleshooting.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Troubleshooting</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Quick Start Guide
+                </h1>
+                <p class="text-xl md:text-2xl text-indigo-100">
+                    Get your CI/CD system running in 5 minutes
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Table of Contents</h3>
+                    <nav class="space-y-2">
+                        <a href="#prerequisites" class="block text-gray-600 hover:text-indigo-600 transition-colors">Prerequisites</a>
+                        <a href="#install" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 1: Install Webhook Server</a>
+                        <a href="#verify" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 2: Verify Installation</a>
+                        <a href="#webhook-url" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 3: Get Webhook URL</a>
+                        <a href="#setup-repo" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 4: Set Up Repository</a>
+                        <a href="#configure-webhook" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 5: Configure Webhook</a>
+                        <a href="#test" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 6: Test Deployment</a>
+                        <a href="#customize" class="block text-gray-600 hover:text-indigo-600 transition-colors">Step 7: Customize Deploy Script</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Prerequisites -->
+                <section id="prerequisites" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>Prerequisites
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-server text-indigo-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold">Linux Server</h4>
+                                <p class="text-gray-600">Ubuntu/Debian/CentOS/Fedora with sudo access</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fab fa-docker text-blue-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold">Docker Installed</h4>
+                                <p class="text-gray-600">Docker and Docker Compose installed and running</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fab fa-git-alt text-orange-600 mt-1 mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold">Git Account</h4>
+                                <p class="text-gray-600">Gitea or GitHub account with SSH keys configured</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 1 -->
+                <section id="install" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">1</span>
+                        Install Webhook Server
+                    </h2>
+                    <p class="text-gray-600 mb-4">Run this command on your server:</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                        <code>curl -sSL https://github.com/jrh89/cicd/raw/master/webhook-server/install-server.sh | sudo bash</code>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-indigo-900 mb-2">What this does:</h4>
+                        <ul class="text-sm text-indigo-800 space-y-1">
+                            <li>✅ Installs Node.js if missing</li>
+                            <li>✅ Creates <code>/home/$USER/CI-CD/webhook-server/</code> directory</li>
+                            <li>✅ Downloads and configures webhook server</li>
+                            <li>✅ Starts systemd service on port 9001</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Step 2 -->
+                <section id="verify" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">2</span>
+                        Verify Installation
+                    </h2>
+                    <p class="text-gray-600 mb-4">Check that the webhook server is running:</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                        <code>systemctl status webhook-multi-repo</code>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <p class="text-green-800">You should see output like:</p>
+                        <pre class="text-sm text-green-700 mt-2">● webhook-multi-repo.service - Multi-Repository Gitea Webhook Deployment Server
+   Loaded: loaded (/etc/systemd/system/webhook-multi-repo.service; enabled; vendor preset: enabled)
+   Active: active (running) since [timestamp]</pre>
+                    </div>
+                </section>
+
+                <!-- Step 3 -->
+                <section id="webhook-url" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">3</span>
+                        Get Your Webhook URL
+                    </h2>
+                    <p class="text-gray-600 mb-4">Find your server's IP address:</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                        <code>hostname -I | awk '{print $1}'</code>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <p class="text-blue-800">Your webhook URL will be:</p>
+                        <p class="text-lg font-mono text-blue-900 mt-2">http://YOUR_SERVER_IP:9001/deploy</p>
+                    </div>
+                </section>
+
+                <!-- Step 4 -->
+                <section id="setup-repo" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">4</span>
+                        Set Up Your Repository
+                    </h2>
+                    <p class="text-gray-600 mb-4">For each repository you want to deploy:</p>
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+                        <code>cd /path/to/your/repository<br>curl -sSL https://github.com/jrh89/cicd/raw/master/scripts/setup-repo.sh | bash</code>
+                    </div>
+                    <p class="text-gray-600">This creates a <code>deploy.sh</code> script customized for your project type.</p>
+                </section>
+
+                <!-- Step 5 -->
+                <section id="configure-webhook" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">5</span>
+                        Configure Webhook (Gitea or GitHub)
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">
+                                <i class="fab fa-git-alt text-orange-600 mr-2"></i>For Gitea:
+                            </h4>
+                            <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                                <li>Go to repository → Settings → Webhooks</li>
+                                <li>Click "Add Webhook"</li>
+                                <li>Target URL: <code>http://YOUR_SERVER_IP:9001/deploy</code></li>
+                                <li>HTTP Method: POST</li>
+                                <li>Content Type: application/json</li>
+                                <li>Events: Push events only</li>
+                                <li>Branch Filter: <code>main</code></li>
+                                <li>Click "Add Webhook"</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">
+                                <i class="fab fa-github text-gray-800 mr-2"></i>For GitHub:
+                            </h4>
+                            <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                                <li>Go to repository → Settings → Webhooks</li>
+                                <li>Click "Add webhook"</li>
+                                <li>Payload URL: <code>http://YOUR_SERVER_IP:9001/deploy</code></li>
+                                <li>Content type: application/json</li>
+                                <li>Which events: Just the push event</li>
+                                <li>Click "Add webhook"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 6 -->
+                <section id="test" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">6</span>
+                        Test Your First Deployment
+                    </h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">1. Make a change to your code:</h4>
+                            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                <code>echo "test" >> test.txt<br>git add test.txt<br>git commit -m "Test deployment"<br>git push origin main</code>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">2. Check the webhook logs:</h4>
+                            <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                                <code>journalctl -u webhook-multi-repo -f</code>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <p class="text-green-800">You should see logs like:</p>
+                            <pre class="text-sm text-green-700 mt-2">Received webhook from repo: your-repo-name, branch: refs/heads/main
+🚀 Triggering deployment for your-repo-name...
+✅ Deployment successful for your-repo-name!</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 7 -->
+                <section id="customize" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <span class="bg-indigo-600 text-white rounded-full w-8 h-8 inline-flex items-center justify-center mr-2">7</span>
+                        Customize Deploy Script (Optional)
+                    </h2>
+                    <p class="text-gray-600 mb-4">Edit the <code>deploy.sh</code> in your repository to match your specific needs:</p>
+                    
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">For Docker projects (default):</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code>docker compose up -d --build --force-recreate</code>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">For Node.js projects:</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code>npm ci --production<br>npm run build<br>pm2 restart app</code>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">For static sites:</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code>npm run build<br>rsync -avz --delete dist/ /var/www/site/</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Success -->
+                <section class="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg p-8">
+                    <h2 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-check-circle mr-2"></i>You're Done!
+                    </h2>
+                    <p class="text-lg mb-4">Your CI/CD system is now:</p>
+                    <ul class="space-y-2">
+                        <li>✅ Running on port 9001</li>
+                        <li>✅ Listening for webhook events</li>
+                        <li>✅ Auto-deploying on pushes</li>
+                        <li>✅ Ready for multiple repositories</li>
+                    </ul>
+                    <p class="mt-4">Add more repositories by repeating Step 4-6 for each one!</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">Need help? Check the <a href="troubleshooting.html" class="text-indigo-400 hover:text-white">Troubleshooting Guide</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Guide - CI/CD Deployment System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-rocket text-2xl text-indigo-600 mr-2"></i>
+                        <span class="text-xl font-bold gradient-text">CI/CD</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="quick-start.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Quick Start</a>
+                        <a href="webhook-setup.html" class="text-gray-900 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Webhook Setup</a>
+                        <a href="troubleshooting.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Troubleshooting</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Troubleshooting Guide
+                </h1>
+                <p class="text-xl md:text-2xl text-indigo-100">
+                    Common issues and solutions for your CI/CD system
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                    <nav class="space-y-2">
+                        <a href="#installation" class="block text-gray-600 hover:text-indigo-600 transition-colors">🔧 Installation Issues</a>
+                        <a href="#webhook" class="block text-gray-600 hover:text-indigo-600 transition-colors">🔗 Webhook Issues</a>
+                        <a href="#docker" class="block text-gray-600 hover:text-indigo-600 transition-colors">🐳 Docker Issues</a>
+                        <a href="#permissions" class="block text-gray-600 hover:text-indigo-600 transition-colors">📁 Permission Issues</a>
+                        <a href="#debugging" class="block text-gray-600 hover:text-indigo-600 transition-colors">🔍 Debugging Tools</a>
+                        <a href="#prevention" class="block text-gray-600 hover:text-indigo-600 transition-colors">✅ Prevention Tips</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Installation Issues -->
+                <section id="installation" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-tools text-red-600 mr-2"></i>Installation Issues
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "No such file or directory" when installing</h4>
+                            <p class="text-red-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>cp: cannot stat '/home/user/webhook-multi-repo.js': No such file or directory</code>
+                            </div>
+                            <p class="text-red-800 mb-2"><strong>Causes:</strong></p>
+                            <ul class="text-red-800 text-sm space-y-1">
+                                <li>• Script downloaded via curl but files aren't in same directory</li>
+                                <li>• Network issues downloading from GitHub</li>
+                            </ul>
+                            <p class="text-red-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-red-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check internet connection:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>curl -I https://github.com/jrh89/cicd/raw/master/webhook-server/webhook-multi-repo.js</code>
+                                    </div>
+                                </li>
+                                <li>Download manually:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>mkdir -p ~/CI-CD/webhook-server<br>cd ~/CI-CD/webhook-server<br>curl -O https://github.com/jrh89/cicd/raw/master/webhook-server/webhook-multi-repo.js<br>curl -O https://github.com/jrh89/cicd/raw/master/webhook-server/webhook-multi-repo.service</code>
+                                    </div>
+                                </li>
+                                <li>Re-run install script:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo /home/jrh89/Work/cicd/webhook-server/install-server.sh</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: "Node.js not found" or "No such file or directory"</h4>
+                            <p class="text-red-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>Failed to locate executable /usr/bin/node: No such file or directory</code>
+                            </div>
+                            <p class="text-red-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-red-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check if Node.js exists:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>which node<br>node --version</code>
+                                    </div>
+                                </li>
+                                <li>Install Node.js manually:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># Ubuntu/Debian<br>curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -<br>sudo apt-get install -y nodejs<br><br># CentOS/RHEL<br>curl -fsSL https://rpm.nodesource.com/setup_lts.x | sudo bash -<br>sudo yum install -y nodejs</code>
+                                    </div>
+                                </li>
+                                <li>Update service file manually:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># Find correct Node.js path<br>which node<br><br># Update service file<br>sudo sed -i "s|/usr/bin/node|$(which node)|g" /etc/systemd/system/webhook-multi-repo.service<br>sudo systemctl daemon-reload<br>sudo systemctl restart webhook-multi-repo</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 bg-red-50 p-4">
+                            <h4 class="font-semibold text-red-900">Issue: Service fails to start</h4>
+                            <p class="text-red-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>❌ Failed to start webhook server</code>
+                            </div>
+                            <p class="text-red-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-red-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check service status:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo systemctl status webhook-multi-repo</code>
+                                    </div>
+                                </li>
+                                <li>Check detailed logs:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo journalctl -u webhook-multi-repo -n 50</code>
+                                    </div>
+                                </li>
+                                <li>Check file permissions:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>ls -la ~/CI-CD/webhook-server/<br># Should show:<br># -rwxr-xr-x 1 user user ... webhook-multi-repo.js<br># -rw-r--r-- 1 user user ... webhook-multi-repo.service</code>
+                                    </div>
+                                </li>
+                                <li>Fix permissions if needed:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo chown -R $USER:$USER ~/CI-CD/webhook-server/<br>chmod +x ~/CI-CD/webhook-server/webhook-multi-repo.js</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Webhook Issues -->
+                <section id="webhook" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-link text-blue-600 mr-2"></i>Webhook Issues
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <h4 class="font-semibold text-blue-900">Issue: Webhook not triggering deployment</h4>
+                            <p class="text-blue-800 mb-2"><strong>Symptoms:</strong></p>
+                            <ul class="text-blue-800 text-sm space-y-1">
+                                <li>• Push to repository but no deployment happens</li>
+                                <li>• Webhook test succeeds but no deployment</li>
+                            </ul>
+                            <p class="text-blue-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-blue-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check webhook server is running:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo systemctl status webhook-multi-repo</code>
+                                    </div>
+                                </li>
+                                <li>Check webhook logs:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo journalctl -u webhook-multi-repo -f</code>
+                                    </div>
+                                </li>
+                                <li>Test webhook manually:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>curl -X POST http://localhost:9001/deploy \<br>  -H "Content-Type: application/json" \<br>  -d '{"ref":"refs/heads/main","repository":{"name":"test-repo"}}'</code>
+                                    </div>
+                                </li>
+                                <li>Check webhook URL accessibility:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># From another machine<br>curl http://YOUR_SERVER_IP:9001/deploy<br># Should return: {"error":"Not found"}</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <h4 class="font-semibold text-blue-900">Issue: "Git pull failed" in deployment</h4>
+                            <p class="text-blue-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>❌ Deployment failed for repo-name: fatal: could not read Username</code>
+                            </div>
+                            <p class="text-blue-800 mb-2"><strong>Causes:</strong></p>
+                            <ul class="text-blue-800 text-sm space-y-1">
+                                <li>• SSH keys not configured</li>
+                                <li>• Wrong Git remote URL</li>
+                                <li>• Authentication issues</li>
+                            </ul>
+                            <p class="text-blue-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-blue-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check SSH connection:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>cd /path/to/your/repo<br>ssh -T git@github.com    # or git@your-gitea-server.com</code>
+                                    </div>
+                                </li>
+                                <li>Check remote URL:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>git remote -v<br># Should show SSH URLs like: git@github.com:user/repo.git</code>
+                                    </div>
+                                </li>
+                                <li>Fix remote URL if needed:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>git remote set-url origin git@github.com:user/repo.git</code>
+                                    </div>
+                                </li>
+                                <li>Set up SSH keys:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># Generate key<br>ssh-keygen -t ed25519 -C "your-email@example.com"<br><br># Add to GitHub/Gitea<br>cat ~/.ssh/id_ed25519.pub</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <h4 class="font-semibold text-blue-900">Issue: "Repository not found or no deploy.sh"</h4>
+                            <p class="text-blue-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>❌ Repository repo-name not found or no deploy.sh at /path/to/repo</code>
+                            </div>
+                            <p class="text-blue-800 mb-2"><strong>Causes:</strong></p>
+                            <ul class="text-blue-800 text-sm space-y-1">
+                                <li>• Wrong repos base directory</li>
+                                <li>• Deploy script not created</li>
+                                <li>• Wrong repository name</li>
+                            </ul>
+                            <p class="text-blue-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-blue-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check repos base directory:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># Check what REPOS_BASE_DIR is set to<br>systemctl show webhook-multi-repo -p Environment | grep REPOS_BASE_DIR</code>
+                                    </div>
+                                </li>
+                                <li>Find your repository:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>find /home -name "your-repo-name" -type d 2>/dev/null</code>
+                                    </div>
+                                </li>
+                                <li>Create deploy script if missing:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>cd /path/to/your/repo<br>curl -sSL https://github.com/jrh89/cicd/raw/master/scripts/setup-repo.sh | bash</code>
+                                    </div>
+                                </li>
+                                <li>Update REPOS_BASE_DIR if needed:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># Edit service file<br>sudo nano /etc/systemd/system/webhook-multi-repo.service<br># Change: Environment=REPOS_BASE_DIR=/correct/path<br>sudo systemctl daemon-reload<br>sudo systemctl restart webhook-multi-repo</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Docker Issues -->
+                <section id="docker" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fab fa-docker text-blue-600 mr-2"></i>Docker Issues
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <h4 class="font-semibold text-blue-900">Issue: Docker build fails</h4>
+                            <p class="text-blue-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>docker compose build --no-cache fails</code>
+                            </div>
+                            <p class="text-blue-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-blue-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check Docker is running:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo systemctl status docker</code>
+                                    </div>
+                                </li>
+                                <li>Check Docker permissions:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo usermod -aG docker $USER<br># Logout and login again</code>
+                                    </div>
+                                </li>
+                                <li>Check Docker Compose file:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>cd /path/to/your/repo<br>docker compose config</code>
+                                    </div>
+                                </li>
+                                <li>Build manually to see errors:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>cd /path/to/your/repo<br>docker compose build --no-cache</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-blue-500 bg-blue-50 p-4">
+                            <h4 class="font-semibold text-blue-900">Issue: "Permission denied" with Docker</h4>
+                            <p class="text-blue-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>permission denied while trying to connect to the Docker daemon socket</code>
+                            </div>
+                            <p class="text-blue-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-blue-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Add user to docker group:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo usermod -aG docker $USER<br>newgrp docker</code>
+                                    </div>
+                                </li>
+                                <li>Or run with sudo in deploy script:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code># In deploy.sh, change:<br>docker compose up -d --build --force-recreate<br># To:<br>sudo docker compose up -d --build --force-recreate</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Permission Issues -->
+                <section id="permissions" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-lock text-yellow-600 mr-2"></i>File and Permission Issues
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4">
+                            <h4 class="font-semibold text-yellow-900">Issue: "Permission denied" accessing files</h4>
+                            <p class="text-yellow-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>Permission denied: /home/user/CI-CD/webhook-server/</code>
+                            </div>
+                            <p class="text-yellow-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-yellow-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Check ownership:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>ls -la ~/CI-CD/</code>
+                                    </div>
+                                </li>
+                                <li>Fix ownership:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>sudo chown -R $USER:$USER ~/CI-CD/</code>
+                                    </div>
+                                </li>
+                                <li>Fix permissions:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>chmod 755 ~/CI-CD/webhook-server/<br>chmod +x ~/CI-CD/webhook-server/webhook-multi-repo.js</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4">
+                            <h4 class="font-semibold text-yellow-900">Issue: Deploy script not executable</h4>
+                            <p class="text-yellow-800 mb-2"><strong>Symptoms:</strong></p>
+                            <div class="bg-gray-900 text-gray-100 p-2 rounded font-mono text-sm mb-2">
+                                <code>./deploy.sh: Permission denied</code>
+                            </div>
+                            <p class="text-yellow-800 mb-2"><strong>Solutions:</strong></p>
+                            <ol class="text-yellow-800 text-sm space-y-1 list-decimal list-inside">
+                                <li>Make executable:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>chmod +x deploy.sh</code>
+                                    </div>
+                                </li>
+                                <li>Check if it's actually a script:
+                                    <div class="bg-gray-900 text-gray-100 p-1 rounded font-mono text-xs mt-1">
+                                        <code>file deploy.sh<br>head -1 deploy.sh</code>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Debugging Tools -->
+                <section id="debugging" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-search text-purple-600 mr-2"></i>Debugging Tools
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-purple-900 mb-2">Check System Status</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code># Webhook server status<br>sudo systemctl status webhook-multi-repo<br><br># Recent webhook logs<br>sudo journalctl -u webhook-multi-repo -n 50<br><br># Follow logs in real-time<br>sudo journalctl -u webhook-multi-repo -f<br><br># Check port is listening<br>sudo netstat -tlnp | grep 9001</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-purple-900 mb-2">Test Webhook Manually</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code># Test with correct payload<br>curl -X POST http://localhost:9001/deploy \<br>  -H "Content-Type: application/json" \<br>  -d '{<br>    "ref": "refs/heads/main",<br>    "repository": {<br>      "name": "your-repo-name"<br>    }<br>  }'</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-purple-900 mb-2">Check Repository Setup</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code># Check if deploy script exists<br>ls -la /path/to/repo/deploy.sh<br><br># Check git remote<br>cd /path/to/repo && git remote -v<br><br># Test git pull<br>cd /path/to/repo && git pull origin main</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-purple-900 mb-2">Check Docker Setup</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code># Check Docker status<br>sudo systemctl status docker<br><br># Test Docker access<br>docker ps<br><br># Check compose file<br>cd /path/to/repo && docker compose config</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prevention Tips -->
+                <section id="prevention" class="bg-white rounded-lg shadow-md p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                        <i class="fas fa-shield-alt text-green-600 mr-2"></i>Prevention Tips
+                    </h2>
+                    
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                        <ul class="text-green-800 space-y-2">
+                            <li><strong>Regular updates:</strong> Keep Node.js and Docker updated</li>
+                            <li><strong>Monitor logs:</strong> Check webhook logs weekly</li>
+                            <li><strong>Backup configs:</strong> Save working deploy scripts</li>
+                            <li><strong>Test changes:</strong> Test in development first</li>
+                            <li><strong>Document setup:</strong> Keep notes on your specific configuration</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Getting Help -->
+                <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg p-8">
+                    <h2 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-life-ring mr-2"></i>Getting Help
+                    </h2>
+                    <div class="space-y-4">
+                        <p class="text-lg">If you've tried the solutions above and still have issues, provide:</p>
+                        <ul class="space-y-2">
+                            <li>• <strong>Error messages</strong> (full output)</li>
+                            <li>• <strong>System info</strong> (OS version, Node.js version)</li>
+                            <li>• <strong>Service status</strong> (webhook service logs)</li>
+                            <li>• <strong>What you've tried</strong> (steps taken so far)</li>
+                        </ul>
+                        
+                        <div class="bg-white bg-opacity-20 rounded-lg p-4 mt-4">
+                            <h4 class="font-semibold mb-2">Collect Debug Information</h4>
+                            <div class="bg-gray-900 text-gray-100 p-3 rounded font-mono text-sm">
+                                <code># System info<br>uname -a<br>cat /etc/os-release<br><br># Node.js info<br>which node<br>node --version<br>npm --version<br><br># Docker info<br>docker --version<br>docker compose version<br><br># Service status<br>sudo systemctl status webhook-multi-repo<br>sudo journalctl -u webhook-multi-repo -n 20<br><br># Network info<br>hostname -I<br>sudo netstat -tlnp | grep 9001</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">This should resolve most common issues! 🎯</p>
+        </div>
+    </footer>
+</body>
+</html>
