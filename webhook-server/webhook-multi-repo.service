@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=__USER__
 WorkingDirectory=__WEBHOOK_DIR__
-ExecStart=/usr/bin/node webhook-multi-repo.js
+ExecStart=/usr/bin/node __WEBHOOK_DIR__/webhook-multi-repo.js
 Environment=FORCE_CLEAN_BUILD=true
 Restart=always
 RestartSec=10
