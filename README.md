@@ -4,15 +4,35 @@ A zero-downtime webhook deployment system that works with any repository. One we
 
 ## Quick Start
 
-### For New Repositories
-```bash
-# One-command setup
-curl -sSL http://github.com/jrh89/cicd/raw/master/scripts/setup-repo.sh | bash
+### Installation Options
 
-# Set webhook in Gitea: http://localhost:9001/deploy
+Choose your preferred installation method:
+
+#### Option 1: Webhook Deployment (Original System)
+```bash
+sudo ./install.sh
+# Choose option 1 for traditional GitHub/Gitea webhook deployments
 ```
 
-### For Webhook Server
+#### Option 2: Local Deployment Only
+```bash
+sudo ./install.sh
+# Choose option 2 for one-click local deployments without pushing to remote
+```
+
+#### Option 3: Both Systems
+```bash
+sudo ./install.sh
+# Choose option 3 for maximum flexibility - both webhook and local deployment
+```
+
+### For New Repositories (Any Installation Method)
+```bash
+cd /path/to/your/repo
+curl -sSL http://github.com/jrh89/cicd/raw/master/scripts/setup-repo.sh | bash
+```
+
+### For Webhook Server Only
 ```bash
 # Install webhook server (default repos directory: ~/)
 curl -sSL http://github.com/jrh89/cicd/raw/master/webhook-server/install-server.sh | sudo bash
