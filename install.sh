@@ -8,6 +8,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 REAL_USER=${SUDO_USER:-$USER}
 if [[ "$REAL_USER" == "root" ]]; then
     REAL_USER=$(logname 2>/dev/null || echo $SUDO_USER)
@@ -25,27 +28,28 @@ SERVICE_NAME="webhook-multi-repo"
 
 echo "Installing for user: $REAL_USER"
 echo "Webhook directory: $WEBHOOK_DIR"
+echo "Script directory: $SCRIPT_DIR"
 
 install_webhook_system() {
     echo "Installing webhook deployment system..."
-    if [[ -f "webhook-server/install-server.sh" ]]; then
-        chmod +x webhook-server/install-server.sh
-        REPOS_BASE_DIR="$REPOS_BASE_DIR" webhook-server/install-server.sh
+    if [[ -f "$SCRIPT_DIR/webhook-server/install-server.sh" ]]; then
+        chmod +x "$SCRIPT_DIR/webhook-server/install-server.sh"
+        REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/webhook-server/install-server.sh"
     else
-        echo "webhook-server/install-server.sh not found"
-        echo "Please ensure you are in the correct directory"
+        echo "webhook-server/install-server.sh not found in $SCRIPT_DIR"
+        echo "Please ensure you downloaded the complete repository"
         exit 1
     fi
 }
 
 install_local_system() {
     echo "Installing local deployment system..."
-    if [[ -f "setup-local-deployment.sh" ]]; then
-        chmod +x setup-local-deployment.sh
-        REPOS_BASE_DIR="$REPOS_BASE_DIR" ./setup-local-deployment.sh
+    if [[ -f "$SCRIPT_DIR/setup-local-deployment.sh" ]]; then
+        chmod +x "$SCRIPT_DIR/setup-local-deployment.sh"
+        REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/setup-local-deployment.sh"
     else
-        echo "setup-local-deployment.sh not found"
-        echo "Please ensure you are in the correct directory"
+        echo "setup-local-deployment.sh not found in $SCRIPT_DIR"
+        echo "Please ensure you downloaded the complete repository"
         exit 1
     fi
 }
