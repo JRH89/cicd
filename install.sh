@@ -36,9 +36,10 @@ install_webhook_system() {
         chmod +x "$SCRIPT_DIR/webhook-server/install-server.sh"
         REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/webhook-server/install-server.sh"
     else
-        echo "webhook-server/install-server.sh not found in $SCRIPT_DIR"
-        echo "Please ensure you downloaded the complete repository"
-        exit 1
+        echo "Downloading install-server.sh..."
+        curl -sSL https://raw.githubusercontent.com/jrh89/cicd/install-fix/webhook-server/install-server.sh -o install-server.sh
+        chmod +x install-server.sh
+        REPOS_BASE_DIR="$REPOS_BASE_DIR" ./install-server.sh
     fi
 }
 
@@ -48,9 +49,10 @@ install_local_system() {
         chmod +x "$SCRIPT_DIR/setup-local-deployment.sh"
         REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/setup-local-deployment.sh"
     else
-        echo "setup-local-deployment.sh not found in $SCRIPT_DIR"
-        echo "Please ensure you downloaded the complete repository"
-        exit 1
+        echo "Downloading setup-local-deployment.sh..."
+        curl -sSL https://raw.githubusercontent.com/jrh89/cicd/install-fix/setup-local-deployment.sh -o setup-local-deployment.sh
+        chmod +x setup-local-deployment.sh
+        REPOS_BASE_DIR="$REPOS_BASE_DIR" ./setup-local-deployment.sh
     fi
 }
 
