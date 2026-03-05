@@ -44,22 +44,19 @@ install_webhook_system() {
 
 install_local_system() {
     echo "Installing local deployment system..."
-    # Execute local deployment setup
     if [[ -f "setup-local-deployment.sh" ]]; then
         chmod +x setup-local-deployment.sh
         REPOS_BASE_DIR="$REPOS_BASE_DIR" ./setup-local-deployment.sh
     else
-        echo "❌ setup-local-deployment.sh not found"
-        echo "Please ensure you're in the correct directory"
+        echo "setup-local-deployment.sh not found"
+        echo "Please ensure you are in the correct directory"
         exit 1
     fi
 }
 
 install_both_systems() {
     echo "Installing both webhook and local deployment systems..."
-    # Install webhook system first
     install_webhook_system
-    # Then install local system
     install_local_system
 }
 
@@ -87,9 +84,8 @@ configure_webhook_port() {
     read -p "Enter webhook port (default 9001): " new_port
     if [[ -n "$new_port" ]]; then
         echo "Updating webhook port to $new_port..."
-        # Update service file with new port
         sed -i "s/PORT = 9001/PORT = $new_port/g" "$WEBHOOK_DIR/webhook-multi-repo.js"
-        echo "✅ Port updated to $new_port"
+        echo "Port updated to $new_port"
     else
         echo "Port remains 9001"
     fi
@@ -100,7 +96,7 @@ set_repos_directory() {
     read -p "Enter repos base directory (default $REPOS_BASE_DIR): " new_repos_dir
     if [[ -n "$new_repos_dir" ]]; then
         REPOS_BASE_DIR="$new_repos_dir"
-        echo "✅ Repos directory set to $REPOS_BASE_DIR"
+        echo "Repos directory set to $REPOS_BASE_DIR"
     else
         echo "Repos directory remains $REPOS_BASE_DIR"
     fi
@@ -115,14 +111,14 @@ view_current_config() {
     echo "Service Name: $SERVICE_NAME"
     
     if [[ -f "$WEBHOOK_DIR/webhook-multi-repo.js" ]]; then
-        current_port=$(grep "PORT = " "$WEBHOOK_DIR/webhook-multi-repo.js" | cut -d' ' ' -f3)
+        current_port=$(grep "PORT = " "$WEBHOOK_DIR/webhook-multi-repo.js" | cut -d '"' -f3)
         echo "Current Webhook Port: ${current_port:-9001}"
     fi
     
     if systemctl is-active --quiet $SERVICE_NAME 2>/dev/null; then
-        echo "Service Status: ✅ Running"
+        echo "Service Status: Running"
     else
-        echo "Service Status: ❌ Stopped"
+        echo "Service Status: Stopped"
     fi
 }
 
@@ -130,6 +126,24 @@ return_to_main_menu() {
     echo ""
     echo "Returning to main menu..."
     sleep 1
-    # Restart the main menu
     ./install.sh
 }
+
+# Interactive choice handling
+echo ""
+echo "Choose installation method:"
+echo "1) Webhook Deployment (GitHub/Gitea) [RECOMMENDED]"
+echo "2) Local Deployment Only [NEW]"
+echo "3) Both Systems (Webhook + Local) [NEW]"
+echo "4) Advanced Options"
+echo ""
+read -p "Enter choice [1-4]: " choice
+
+# Execute choice
+case $choice in
+    1) install_webhook_system ;;
+    2) install_local_system ;;
+    3) install_both_systems ;;
+    4) show_advanced_options ;;
+    *) install_webhook_system ;;
+esac
