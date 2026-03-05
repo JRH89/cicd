@@ -33,9 +33,6 @@ echo "Installing for user: $REAL_USER"
 echo "Webhook directory: $WEBHOOK_DIR"
 
 # Function definitions
-    *) install_webhook_system ;; # default
-esac
-
 install_webhook_system() {
     echo "Installing webhook deployment system..."
     # Execute existing install-server.sh
@@ -122,7 +119,7 @@ view_current_config() {
     echo "Service Name: $SERVICE_NAME"
     
     if [[ -f "$WEBHOOK_DIR/webhook-multi-repo.js" ]]; then
-        current_port=$(grep "PORT = " "$WEBHOOK_DIR/webhook-multi-repo.js" | cut -d' ' ' -f3)
+        current_port=$(grep "PORT = " "$WEBHOOK_DIR/webhook-multi-repo.js" | cut -d" " -f3)
         echo "Current Webhook Port: ${current_port:-9001}"
     fi
     
@@ -140,3 +137,22 @@ return_to_main_menu() {
     # Restart the main menu
     ./install.sh
 }
+
+# Interactive choice handling
+echo ""
+echo "Choose installation method:"
+echo "1) Webhook Deployment (GitHub/Gitea) [RECOMMENDED]"
+echo "2) Local Deployment Only [NEW]"
+echo "3) Both Systems (Webhook + Local) [NEW]"
+echo "4) Advanced Options"
+echo ""
+read -p "Enter choice [1-4]: " choice
+
+# Execute choice
+case $choice in
+    1) install_webhook_system ;;
+    2) install_local_system ;;
+    3) install_both_systems ;;
+    4) show_advanced_options ;;
+    *) install_webhook_system ;; # default
+esac
