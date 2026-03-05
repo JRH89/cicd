@@ -45,11 +45,13 @@ install_webhook_system() {
 
 install_local_system() {
     echo "Installing local deployment system..."
+    echo "Looking for: $SCRIPT_DIR/setup-local-deployment.sh"
     if [[ -f "$SCRIPT_DIR/setup-local-deployment.sh" ]]; then
+        echo "Found local file, using it..."
         chmod +x "$SCRIPT_DIR/setup-local-deployment.sh"
         REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/setup-local-deployment.sh"
     else
-        echo "Downloading setup-local-deployment.sh..."
+        echo "Local file not found, downloading..."
         curl -sSL https://raw.githubusercontent.com/jrh89/cicd/install-fix/setup-local-deployment.sh -o setup-local-deployment.sh
         chmod +x setup-local-deployment.sh
         REPOS_BASE_DIR="$REPOS_BASE_DIR" ./setup-local-deployment.sh
