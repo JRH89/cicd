@@ -42,6 +42,9 @@ echo "4) Advanced Options"
 echo ""
 read -p "Enter choice [1-4]: " choice
 
+# Function definitions
+
+# Execute choice
 case $choice in
     1) install_webhook_system ;;
     2) install_local_system ;;
