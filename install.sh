@@ -52,7 +52,7 @@ install_local_system() {
         REPOS_BASE_DIR="$REPOS_BASE_DIR" "$SCRIPT_DIR/setup-local-deployment.sh"
     else
         echo "Local file not found, downloading..."
-        curl -sSL https://raw.githubusercontent.com/jrh89/cicd/install-fix/setup-local-deployment.sh -o setup-local-deployment.sh
+        curl -sSL https://raw.githubusercontent.com/jrh89/cicd/install-fix-v2/setup-local-deployment.sh -o setup-local-deployment.sh
         chmod +x setup-local-deployment.sh
         REPOS_BASE_DIR="$REPOS_BASE_DIR" ./setup-local-deployment.sh
     fi
