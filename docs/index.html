@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Deployment System - Universal Webhook-Based Deployment</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Universal webhook-based deployment system for modern applications. Multi-repository support, zero downtime, and auto-deploy capabilities.">
+    <meta name="keywords" content="CI/CD, deployment, webhook, automation, docker, zero-downtime, multi-repository">
+    <meta name="author" content="JRH89">
+    <link rel="canonical" href="https://jrh89.github.io/cicd/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CI/CD Deployment System - Universal Webhook-Based Deployment">
+    <meta property="og:description" content="Universal webhook-based deployment system for modern applications. Multi-repository support, zero downtime, and auto-deploy capabilities.">
+    <meta property="og:image" content="https://jrh89.github.io/cicd/public/images/og.png">
+    <meta property="og:url" content="https://jrh89.github.io/cicd/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CI/CD Deployment System">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CI/CD Deployment System - Universal Webhook-Based Deployment">
+    <meta name="twitter:description" content="Universal webhook-based deployment system for modern applications. Multi-repository support, zero downtime, and auto-deploy capabilities.">
+    <meta name="twitter:image" content="https://jrh89.github.io/cicd/public/images/og.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="public/images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/images/icon.png">
+    <link rel="shortcut icon" href="public/images/icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        .gradient-text {
+            background: none;
+            -webkit-background-clip: unset;
+            -webkit-text-fill-color: unset;
+            background-clip: unset;
+        }
+        .main-gradient {
+            background: #111827;
+            min-height: 100vh;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="main-gradient">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center md:hidden">
+                        <img src="public/images/icon.png" alt="CI/CD" class="h-10 w-10">
+                    </a>
+                    <a href="index.html" class="hidden md:flex flex-shrink-0 flex items-center">
+                        <img src="public/images/icon.png" alt="CI/CD" class="h-10 w-10 mr-3">
+                        <div class="flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-white">CI/CD Deployment System</h3>
+                            <p class="text-gray-400 text-xs">Universal webhook-based deployment for modern applications</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#features" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium text-white">Features</a>
+                    <a href="#install" class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium text-white">Install</a>
+                    
+                    <!-- Documentation Dropdown -->
+                    <div class="relative group">
+                        <button class="text-white hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium text-white flex items-center">
+                            Documentation
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="py-1">
+                                <a href="quick-start.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Quick Start</a>
+                                <a href="webhook-setup.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Webhook Setup</a>
+                                <a href="troubleshooting.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">Troubleshooting</a>
+                                <a href="overview.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">System Overview</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 text-white">
+                        <i class="fab fa-github mr-2"></i>GitHub
+                    </a>
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden ml-4">
+                        <button type="button" class="mobile-menu-button bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-900 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                            <span class="sr-only">Open main menu</span>
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="mobile-menu hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-white hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#features" class="text-white hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">Features</a>
+                <a href="#install" class="text-white hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">Install</a>
+                <a href="#docs" class="text-white hover:text-indigo-600 block px-3 py-2 rounded-md text-base font-medium">Documentation</a>
+                <!-- Documentation links -->
+                <div class="border-t border-gray-700 pt-4 mt-4">
+                    <p class="text-gray-400 px-3 text-sm font-medium mb-2">Documentation Pages:</p>
+                    <a href="quick-start.html" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base">Quick Start</a>
+                    <a href="webhook-setup.html" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base">Webhook Setup</a>
+                    <a href="troubleshooting.html" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base">Troubleshooting</a>
+                    <a href="overview.html" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base">System Overview</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen h-full flex items-center justify-center text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="float-animation">
+                    <img src="public/images/icon.png" alt="CI/CD Deployment System" class="h-20 w-20 mb-6 mx-auto">
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                    CI/CD Deployment System
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-indigo-100">
+                    Multi-Repository • Zero Downtime • Auto-Deploy
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#install" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-rocket mr-2"></i>Get Started
+                    </a>
+                    <a href="#docs" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition-colors">
+                        <i class="fas fa-book mr-2"></i>Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl text-white font-bold mb-4">
+                    Powerful Features
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Everything you need for modern, automated deployments
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Multi-Repository</h3>
+                    <p class="text-gray-600 mb-4">Deploy any number of repositories from a single webhook server. Perfect for managing multiple projects.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Automatic repository detection</li>
+                        <li>• Custom deployment scripts</li>
+                        <li>• Individual log files</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Zero Downtime</h3>
+                    <p class="text-gray-600 mb-4">Docker-based deployments with automatic container recreation. No service interruption during updates.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Clean builds without cache</li>
+                        <li>• Rollback support</li>
+                        <li>• Health checks</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Universal Installation</h3>
+                    <p class="text-gray-600 mb-4">Works for any user, any directory structure. No hardcoded paths or usernames.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Dynamic user detection</li>
+                        <li>• Configurable base directory</li>
+                        <li>• Multi-OS support</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Smart Detection</h3>
+                    <p class="text-gray-600 mb-4">Automatically detects project type and generates appropriate deployment scripts.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Docker projects</li>
+                        <li>• Node.js applications</li>
+                        <li>• Static sites</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Secure & Reliable</h3>
+                    <p class="text-gray-600 mb-4">Built with security best practices and robust error handling for production use.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Non-root user execution</li>
+                        <li>• Automatic restarts</li>
+                        <li>• Comprehensive logging</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                    <div class="text-indigo-600 text-3xl mb-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Easy Integration</h3>
+                    <p class="text-gray-600 mb-4">Works seamlessly with Gitea, GitHub, and other Git providers with simple webhook setup.</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Gitea support</li>
+                        <li>• GitHub support</li>
+                        <li>• SSH authentication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Install Section -->
+    <section id="install" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Quick Installation
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Get your CI/CD system running in seconds with this single command
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">One-Command Installation</h3>
+                        <p class="text-gray-600">Run this command on your Linux server:</p>
+                    </div>
+                    
+                    <div class="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm mb-6 overflow-x-auto">
+                        <code>curl -sSL https://github.com/jrh89/cicd/raw/master/webhook-server/install-server.sh | sudo bash</code>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">What it does:</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>✅ Installs Node.js if missing</li>
+                                <li>✅ Creates webhook server directory</li>
+                                <li>✅ Configures systemd service</li>
+                                <li>✅ Starts server on port 9001</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Requirements:</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Linux server (Ubuntu/Debian/CentOS/Arch)</li>
+                                <li>• Docker installed</li>
+                                <li>• Git account (Gitea/GitHub)</li>
+                                <li>• SSH keys configured</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                        <p class="text-sm text-indigo-800">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            After installation, your webhook server will be running at <code>http://YOUR_SERVER_IP:9001/deploy</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                    Complete Documentation
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Everything you need to set up and troubleshoot your CI/CD system
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="quick-start.html" class="card-hover bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Quick Start</h3>
+                    <p class="text-gray-600 text-sm">Get running in 5 minutes</p>
+                </a>
+                
+                <a href="webhook-setup.html" class="card-hover bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Webhook Setup</h3>
+                    <p class="text-gray-600 text-sm">Gitea & GitHub configuration</p>
+                </a>
+                
+                <a href="troubleshooting.html" class="card-hover bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Troubleshooting</h3>
+                    <p class="text-gray-600 text-sm">Fix common issues</p>
+                </a>
+                
+                <a href="overview.html" class="card-hover bg-white p-6 rounded-xl shadow-lg border border-gray-100 text-center">
+                    <div class="text-indigo-600 text-4xl mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">System Overview</h3>
+                    <p class="text-gray-600 text-sm">Complete documentation</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo and Description -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <img src="public/images/icon.png" alt="CI/CD Deployment System" class="h-10 w-10 mr-3">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">CI/CD Deployment System</h3>
+                            <p class="text-gray-400 text-sm">Universal webhook-based deployment for modern applications</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 text-sm mt-2">
+                        🚀 Deploy with confidence • 🔄 Zero downtime • 🌐 Works anywhere
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="quick-start.html" class="text-gray-400 hover:text-white transition-colors">Quick Start</a></li>
+                        <li><a href="webhook-setup.html" class="text-gray-400 hover:text-white transition-colors">Webhook Setup</a></li>
+                        <li><a href="troubleshooting.html" class="text-gray-400 hover:text-white transition-colors">Troubleshooting</a></li>
+                        <li><a href="overview.html" class="text-gray-400 hover:text-white transition-colors">System Overview</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">GitHub Repository</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/issues" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Report Issues</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/blob/master/README.md" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="https://github.com/jrh89/cicd/releases" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors">Releases</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 mt-8 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                        © 2024 CI/CD Deployment System. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="https://github.com/jrh89/cicd" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" title="GitHub Repository">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const menuIcon = mobileMenuButton.querySelector('i');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle icon between bars and X
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        });
+
+        // Close menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+    </script>
+</body>
+</html>

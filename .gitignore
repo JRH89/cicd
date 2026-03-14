@@ -1,0 +1,30 @@
+# Logs
+*.log
+webhook-multi-repo.log
+deploy.log
+
+# Node modules
+node_modules/
+
+# Backup files
+*.backup
+deploy.sh.backup
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment files
+.env
+.env.local
+.env.*.local
